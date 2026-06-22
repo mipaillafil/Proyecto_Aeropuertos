@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-from database import obtener_datos
-from openmeteo import obtener_clima
+from .database import obtener_datos
+from .openmeteo import obtener_clima
 import pandas as pd
 from typing import Optional
 
