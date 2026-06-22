@@ -7,6 +7,10 @@ from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 from datetime import datetime
+import requests
+from requests.exceptions import RequestException
+
+API_DEFAULT_URL = "http://127.0.0.1:8000"
 
 # ============================================
 # CONFIGURACIÓN DE LA PÁGINA
@@ -17,6 +21,80 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
+
+# ============================================
+# HELPER DE API
+# ============================================
+
+def normalize_api_url(base_url: str) -> str:
+    return base_url.rstrip("/")
+
+@st.cache_data
+def fetch_api_json(endpoint: str):
+    try:
+        response = requests.get(endpoint, timeout=10)
+        response.raise_for_status()
+        return response.json()
+    except RequestException as exc:
+        return {"error": str(exc)}
+
+@st.cache_data
+def load_data():
+    url = "https://raw.githubusercontent.com/mipaillafil/Proyecto_Aeropuertos_Cortes_Marchesse_Paillafil/main/data/operaciones_aeropuertos_clean.csv"
+    df = pd.read_csv(url)
+
+    aeropuertos = [c for c in df.columns if c.startswith("aeropuerto_oaci_")]
+
+    df["aeropuerto"] = (
+        df[aeropuertos]
+        .idxmax(axis=1)
+        .str.replace("aeropuerto_oaci_", "")
+    )
+
+    if "fecha" in df.columns:
+        try:
+            df["fecha"] = pd.to_datetime(df["fecha"])
+            df["año"] = df["fecha"].dt.year
+            df["mes"] = df["fecha"].dt.month
+            df["mes_nombre"] = df["fecha"].dt.strftime("%B")
+            df["dia_semana"] = df["fecha"].dt.day_name()
+        except:
+            pass
+
+    return df
+
+@st.cache_data
+def load_data_from_api(base_url: str):
+    endpoint = f"{normalize_api_url(base_url)}/api/v1/operaciones"
+    result = fetch_api_json(endpoint)
+
+    if isinstance(result, dict) and result.get("error"):
+        return None
+
+    df = pd.DataFrame(result)
+    if df.empty:
+        return None
+
+    if "fecha" in df.columns:
+        try:
+            df["fecha"] = pd.to_datetime(df["fecha"])
+            df["año"] = df["fecha"].dt.year
+            df["mes"] = df["fecha"].dt.month
+            df["mes_nombre"] = df["fecha"].dt.strftime("%B")
+            df["dia_semana"] = df["fecha"].dt.day_name()
+        except:
+            pass
+
+    if "aeropuerto" not in df.columns:
+        aeropuertos = [c for c in df.columns if c.startswith("aeropuerto_oaci_")]
+        if aeropuertos:
+            df["aeropuerto"] = (
+                df[aeropuertos]
+                .idxmax(axis=1)
+                .str.replace("aeropuerto_oaci_", "")
+            )
+
+    return df
 
 # ============================================
 # ESTILOS CSS PERSONALIZADOS
@@ -164,7 +242,16 @@ def load_data():
     
     return df
 
-df = load_data()
+@st.cache_data
+def load_data_source(base_url: str):
+    df_api = load_data_from_api(base_url)
+    if df_api is not None:
+        return df_api, "API"
+    
+    return load_data(), "CSV"
+
+
+df, data_source = load_data_source(API_DEFAULT_URL)
 
 # ============================================
 # SIDEBAR - CONTROLES PARA TODOS LOS DASHBOARDS
@@ -181,6 +268,8 @@ with st.sidebar:
         ✅ Sistema Operativo<br>
         📊 {len(df):,} registros<br>
         🏢 {df['aeropuerto'].nunique()} aeropuertos<br>
+        🛠️ Fuente: {data_source}
+        <br>
         🕐 {datetime.now().strftime('%H:%M:%S')}
     </div>
     """, unsafe_allow_html=True)
