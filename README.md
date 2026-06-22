@@ -1,244 +1,356 @@
-# Operaciones de Aeropuertos - Machine Learning Project
+# Sistema Inteligente de Monitoreo Aeroportuario
 
 ## Integrantes
 - LUNA CORTES
 - JAVIERA MARCHESSE
 - MILLARAY PAILLAFIL
 
----
+## Descripción del Proyecto
 
-# Descripción
+SIMA (Sistema Inteligente de Monitoreo Aeroportuario) es una solución End-to-End desarrollada para la asignatura Programación para la Ciencia de Datos.
 
-Proyecto de Ciencia de Datos y Machine Learning enfocado en el análisis de operaciones aeroportuarias, utilizando técnicas de limpieza, transformación, modelado supervisado y aprendizaje no supervisado para generar análisis predictivos y segmentación de datos.
+El proyecto tiene como objetivo centralizar, procesar, analizar y visualizar información relacionada con operaciones aeroportuarias mediante técnicas de Ciencia de Datos, Ingeniería de Datos y Machine Learning. Para ello se implementó una arquitectura modular que integra procesos ETL, almacenamiento en SQLite, servicios REST mediante FastAPI y dashboards interactivos desarrollados con Streamlit.
 
-El proyecto fue desarrollado en el contexto de la asignatura SCY1101 - Programación para la Ciencia de Datos.
-
----
-
-# Objetivo del Proyecto
-
-Desarrollar una solución completa de Machine Learning que permita:
-
-- Analizar patrones en operaciones aeroportuarias.
-- Predecir comportamientos utilizando modelos supervisados.
-- Segmentar datos mediante técnicas no supervisadas.
-- Optimizar modelos utilizando técnicas avanzadas de hiperparámetros.
-- Interpretar resultados y apoyar la toma de decisiones.
+La solución permite transformar datos operacionales en información útil para distintos tipos de usuarios, apoyando la toma de decisiones estratégicas, operativas y técnicas.
 
 ---
 
-# Dataset
+# Objetivos
 
-## Archivos utilizados
-- `operaciones_aeropuertos_dirty.csv` → Datos originales
-- `operaciones_aeropuertos_clean.csv` → Datos limpios y procesados
+## Objetivo General
 
-## Características del dataset
+Desarrollar una plataforma integral para el monitoreo y análisis de operaciones aeroportuarias utilizando herramientas modernas de Ciencia de Datos.
 
-El dataset contiene información relacionada con operaciones aeroportuarias, incluyendo variables numéricas y categóricas utilizadas para análisis exploratorio, modelado predictivo y segmentación de datos.
+## Objetivos Específicos
 
----
-
-# Metodología
-
-## 1. Limpieza de Datos
-
-Se aplicaron distintas técnicas de limpieza para garantizar calidad y consistencia de los datos:
-
-- Eliminación de duplicados
-- Tratamiento de valores nulos
-- Limpieza de strings
-- Conversión de tipos de datos
-- Eliminación de outliers mediante método IQR
+* Implementar un pipeline ETL para la preparación y limpieza de datos.
+* Integrar múltiples fuentes de información.
+* Construir una base de datos SQLite para almacenamiento persistente.
+* Desarrollar una API REST utilizando FastAPI.
+* Diseñar dashboards interactivos para diferentes perfiles de usuario.
+* Aplicar técnicas de Machine Learning para análisis exploratorio avanzado.
+* Implementar pruebas automatizadas para garantizar la calidad del sistema.
 
 ---
 
-## 2. Transformación de Datos
+# Arquitectura de la Solución
 
-Se implementó un pipeline utilizando Scikit-learn.
-
-### Variables numéricas
-- Imputación con media
-- Escalamiento utilizando `StandardScaler`
-
-### Variables categóricas
-- Imputación con moda
-- Codificación usando `OneHotEncoder`
-
-### Automatización
-- Uso de `ColumnTransformer`
-- Uso de pipelines reproducibles
-
----
-
-## 3. Feature Engineering
-
-Se generaron nuevas variables derivadas para mejorar el desempeño de los modelos.
-
-### Variables creadas
-- `total_operaciones`
-
----
-
-# Modelos Supervisados
-
-Se implementaron distintos algoritmos de Machine Learning utilizando Scikit-learn.
-
-## Modelos utilizados
-
-### Logistic Regression
-Modelo base utilizado para clasificación debido a su interpretabilidad y eficiencia computacional.
-
-### Decision Tree
-Modelo capaz de detectar relaciones no lineales entre variables.
-
-### Random Forest
-Modelo basado en múltiples árboles de decisión que mejora robustez y capacidad de generalización.
-
-### Support Vector Machine (SVM)
-Modelo utilizado para encontrar fronteras de separación más complejas entre clases.
+```text
+Dataset Operaciones Aeroportuarias
+            │
+            ▼
+      Pipeline ETL
+            │
+            ▼
+          SQLite
+            │
+            ▼
+         FastAPI
+            │
+            ├── Estadísticas
+            ├── Operaciones
+            ├── Aeropuertos
+            └── Open-Meteo
+            │
+            ▼
+    Dashboard Streamlit
+            │
+            ├── Ejecutivo
+            ├── Operativo
+            └── Técnico
+            │
+            ▼
+     Machine Learning
+      (K-Means y PCA)
+```
 
 ---
 
-# Evaluación de Modelos Supervisados
+# Estructura del Proyecto
 
-Los modelos fueron evaluados utilizando múltiples métricas:
-
-- Accuracy
-- Precision
-- Recall
-- F1-Score
-- Matriz de confusión
-- Cross Validation
-
-Se realizó una comparación entre modelos para seleccionar la alternativa con mejor rendimiento y capacidad de generalización.
-
----
-
-# Optimización de Hiperparámetros
-
-Se implementaron técnicas de optimización utilizando:
-
-- GridSearchCV
-- RandomizedSearchCV
-
-La optimización permitió encontrar configuraciones más eficientes y mejorar el desempeño predictivo de los modelos.
-
----
-
-# Modelos No Supervisados
-
-También se aplicaron técnicas de aprendizaje no supervisado para segmentar y visualizar patrones ocultos dentro del dataset.
-
----
-
-## K-Means Clustering
-
-Se utilizó el algoritmo K-Means para agrupar registros con características similares.
-
-### Objetivos del clustering
-- Detectar patrones ocultos
-- Identificar segmentos de datos
-- Analizar similitudes entre operaciones aeroportuarias
+```text
+Proyecto_Aeropuertos_Cortes_Marchesse_Paillafil
+│
+├── api/
+│   ├── main.py
+│   ├── database.py
+│   └── openmeteo.py
+│
+├── dashboard/
+│   └── dashboard-inicio.py
+│
+├── data/
+│   ├── operaciones_aeropuertos.csv
+│   ├── operaciones_aeropuertos_clean.csv
+│   └── aeropuertos.db
+│
+├── etl/
+│   └── ETL.ipynb
+│
+├── tests/
+│   ├── test_api.py
+│   ├── test_database.py
+│   └── test_openmeteo.py
+│
+├── requirements.txt
+└── README.md
+```
 
 ---
 
-## Método del Codo
+# Pipeline ETL
 
-Se utilizó el método del codo para determinar la cantidad óptima de clusters.
+El proceso ETL contempla tres etapas fundamentales:
 
-Esta técnica permitió evaluar la variación de la inercia según distintos valores de K.
+## Extracción
+
+Obtención de datos desde:
+
+* Dataset de operaciones aeroportuarias.
+* API Open-Meteo.
+* Base de datos SQLite.
+
+## Transformación
+
+Se realizaron:
+
+* Limpieza de datos.
+* Tratamiento de valores faltantes.
+* Validación de registros.
+* One-Hot Encoding.
+* Normalización de variables.
+
+## Carga
+
+Los datos procesados son almacenados en SQLite para su posterior explotación mediante la API REST.
 
 ---
 
-## Silhouette Score
+# Base de Datos
 
-Se aplicó la métrica Silhouette Score para evaluar la calidad de los clusters generados.
+Se utiliza SQLite como sistema de almacenamiento local.
 
-### Interpretación
-- Valores cercanos a 1 indican clusters bien definidos
-- Valores cercanos a 0 indican solapamiento entre grupos
+Base de datos:
+
+```text
+aeropuertos.db
+```
+
+Tabla principal:
+
+```text
+operaciones
+```
+
+La API consulta directamente esta base de datos para entregar información actualizada al dashboard.
 
 ---
 
-## PCA - Principal Component Analysis
+# API REST (FastAPI)
 
-Se utilizó PCA para reducir dimensionalidad y visualizar los clusters en un espacio bidimensional.
+La API fue desarrollada utilizando FastAPI.
 
-### Objetivos del PCA
-- Reducir complejidad del dataset
-- Facilitar visualización
-- Identificar patrones de agrupamiento
+## Endpoints Disponibles
+
+### Estado de la API
+
+```http
+GET /
+```
+
+### Estadísticas Generales
+
+```http
+GET /api/v1/estadisticas
+```
+
+### Operaciones
+
+```http
+GET /api/v1/operaciones
+```
+
+### Aeropuertos
+
+```http
+GET /api/v1/aeropuertos
+```
+
+### Información Meteorológica
+
+```http
+GET /api/v1/clima
+```
+
+## Documentación Swagger
+
+```text
+http://localhost:8000/docs
+```
 
 ---
 
-# Visualizaciones
+# Dashboard Ejecutivo
 
-Se desarrollaron distintas visualizaciones utilizando Matplotlib y Seaborn:
+Orientado a usuarios estratégicos.
 
-- Histogramas
-- Boxplots
-- Heatmaps
-- Matrices de confusión
-- Comparación de métricas
-- Método del codo
-- Visualización PCA
-- Scatterplots de clusters
+Funcionalidades:
+
+* KPIs generales.
+* Ranking de aeropuertos.
+* Métricas agregadas.
+* Distribución de operaciones.
+
+---
+
+# Dashboard Operativo
+
+Orientado a usuarios operacionales.
+
+Funcionalidades:
+
+* Filtros por aeropuerto.
+* Métricas operativas.
+* Integración con Open-Meteo.
+* Monitoreo de actividad aeroportuaria.
+
+---
+
+# Dashboard Técnico
+
+Orientado a analistas y científicos de datos.
+
+Funcionalidades:
+
+* Clustering mediante K-Means.
+* PCA (Principal Component Analysis).
+* Visualización de clusters.
+* Análisis exploratorio avanzado.
+
+---
+
+# Machine Learning
+
+## Algoritmos Utilizados
+
+### K-Means
+
+Permite identificar segmentos operacionales y agrupaciones de comportamiento.
+
+### PCA
+
+Reduce la dimensionalidad del conjunto de datos para facilitar la visualización de patrones.
+
+---
+
+# Integración Open-Meteo
+
+La plataforma consume información meteorológica en tiempo real utilizando Open-Meteo.
+
+Variables utilizadas:
+
+* Temperatura.
+* Velocidad del viento.
+* Dirección del viento.
+* Código meteorológico.
+
+---
+
+# Testing Automatizado
+
+Se implementaron pruebas automatizadas para validar el correcto funcionamiento de los principales componentes del sistema.
+
+## Pruebas Implementadas
+
+### API
+
+* Validación de endpoints.
+* Respuesta HTTP correcta.
+* Integridad de respuestas JSON.
+
+### Base de Datos
+
+* Verificación de conexión SQLite.
+* Validación de consultas.
+* Integridad de datos.
+
+### Open-Meteo
+
+* Consumo correcto de la API.
+* Validación de estructura de respuesta.
+
+Objetivo:
+
+Garantizar la estabilidad, calidad y confiabilidad de la solución.
+
+---
+
+# Próximas Mejoras
+
+## Containerización con Docker
+
+Como siguiente etapa del proyecto se contempla la incorporación de Docker para facilitar el despliegue y la reproducibilidad del sistema.
+
+Implementaciones planificadas:
+
+* Dockerfile para FastAPI.
+* Dockerfile para Streamlit.
+* docker-compose para orquestación de servicios.
+* Configuración mediante variables de entorno.
+
+Beneficios esperados:
+
+* Portabilidad.
+* Despliegue simplificado.
+* Reproducibilidad del entorno.
+* Escalabilidad futura.
+
+---
+
+# Ejecución del Proyecto
+
+## Instalar Dependencias
+
+```bash
+pip install -r requirements.txt
+```
+
+## Ejecutar API
+
+```bash
+uvicorn api.main:app --reload
+```
+
+## Ejecutar Dashboard
+
+```bash
+streamlit run dashboard/dashboard-inicio.py
+```
+
+## Ejecutar Tests
+
+```bash
+pytest tests/
+```
 
 ---
 
 # Tecnologías Utilizadas
 
-- Python
-- Pandas
-- NumPy
-- Scikit-learn
-- Matplotlib
-- Seaborn
-- Google Colab
+* Python
+* Pandas
+* NumPy
+* SQLite
+* FastAPI
+* Streamlit
+* Plotly
+* Scikit-Learn
+* Pytest
+* Open-Meteo API
 
 ---
 
-# Resultados Principales
+# Asignatura
+ Programación para la Ciencia de Datos
 
-- Implementación exitosa de múltiples modelos supervisados.
-- Comparación técnica utilizando métricas avanzadas.
-- Optimización de hiperparámetros para mejorar rendimiento.
-- Segmentación de datos mediante clustering.
-- Visualización de patrones utilizando PCA.
-- Identificación de grupos similares dentro del dataset.
-
----
-
-# Conclusiones
-
-El proyecto permitió aplicar un flujo completo de Machine Learning, desde limpieza y transformación de datos hasta evaluación, optimización y análisis de modelos supervisados y no supervisados.
-
-Los modelos supervisados permitieron generar predicciones robustas utilizando distintas métricas de evaluación.
-
-Por otra parte, las técnicas no supervisadas facilitaron la identificación de patrones y segmentaciones dentro del dataset, permitiendo visualizar relaciones complejas mediante PCA y clustering.
-
-Los resultados obtenidos demostraron el uso práctico de técnicas de ciencia de datos aplicadas a problemas reales relacionados con operaciones aeroportuarias.
-
----
-
-# Cómo Ejecutar
-
-## Instalar dependencias
-
-```bash
-pip install pandas numpy scikit-learn matplotlib seaborn
-```
-
-## Ejecutar notebooks
-
-Abrir los notebooks en Google Colab o Jupyter Notebook y ejecutar las celdas en orden.
-
----
-
-# Referencias
-
-- Documentación oficial Scikit-learn
-- Documentación oficial Pandas
-- Documentación oficial Matplotlib
-- Material de clases SCY1101
+Duoc UC
