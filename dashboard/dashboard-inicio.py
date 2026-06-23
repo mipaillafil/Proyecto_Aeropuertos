@@ -60,6 +60,16 @@ st.markdown("""
 if "vista_actual" not in st.session_state:
     st.session_state.vista_actual = "inicio"
 
+if "sidebar_vista" not in st.session_state:
+    st.session_state.sidebar_vista = "🏠 Inicio"
+
+if "next_vista" not in st.session_state:
+    st.session_state.next_vista = None
+
+if st.session_state.next_vista is not None:
+    st.session_state.sidebar_vista = st.session_state.next_vista
+    st.session_state.next_vista = None
+
 
 @st.cache_data(ttl=60)
 def cargar_datos_api():
@@ -117,10 +127,12 @@ with st.sidebar:
 
     st.markdown("---")
 
-    vista = st.radio(
-        "Ir a:",
-        ["🏠 Inicio", "📊 Ejecutivo", "⚙️ Operativo", "🤖 Técnico"]
-    )
+    vista_opciones = [
+        "🏠 Inicio",
+        "📊 Ejecutivo",
+        "⚙️ Operativo",
+        "🤖 Técnico"
+    ]
 
     mapa_vistas = {
         "🏠 Inicio": "inicio",
@@ -128,6 +140,13 @@ with st.sidebar:
         "⚙️ Operativo": "operativo",
         "🤖 Técnico": "tecnico"
     }
+
+    vista = st.radio(
+        "Ir a:",
+        vista_opciones,
+        index=vista_opciones.index(st.session_state.sidebar_vista),
+        key="sidebar_vista"
+    )
 
     st.session_state.vista_actual = mapa_vistas[vista]
 
@@ -216,17 +235,20 @@ if st.session_state.vista_actual == "inicio":
     col_a, col_b, col_c = st.columns(3)
 
     with col_a:
-        if st.button("📊 Dashboard Ejecutivo", use_container_width=True):
+        if st.button("📊 Dashboard Ejecutivo", use_container_width=True, key="btn_ejecutivo"):
+            st.session_state.next_vista = "📊 Ejecutivo"
             st.session_state.vista_actual = "ejecutivo"
             st.rerun()
 
     with col_b:
-        if st.button("⚙️ Dashboard Operativo", use_container_width=True):
+        if st.button("⚙️ Dashboard Operativo", use_container_width=True, key="btn_operativo"):
+            st.session_state.next_vista = "⚙️ Operativo"
             st.session_state.vista_actual = "operativo"
             st.rerun()
 
     with col_c:
-        if st.button("🤖 Dashboard Técnico", use_container_width=True):
+        if st.button("🤖 Dashboard Técnico", use_container_width=True, key="btn_tecnico"):
+            st.session_state.next_vista = "🤖 Técnico"
             st.session_state.vista_actual = "tecnico"
             st.rerun()
 
