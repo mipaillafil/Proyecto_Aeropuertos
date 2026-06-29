@@ -5,6 +5,10 @@
 - JAVIERA MARCHESSE
 - MILLARAY PAILLAFIL
 
+## Video Explicativo
+[Video Explicativo SIMA](https://docs.google.com/presentation/d/1yfsZC-XnGhXcnPUYcO-Szv88AsTuREfW/edit?usp=drive_link&ouid=117212070881843989884&rtpof=true&sd=true)
+
+
 ## Descripción del Proyecto
 
 SIMA (Sistema Inteligente de Monitoreo Aeroportuario) es una solución End-to-End desarrollada para la asignatura Programación para la Ciencia de Datos.
