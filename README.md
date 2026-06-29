@@ -6,7 +6,7 @@
 - MILLARAY PAILLAFIL
 
 ## Video Explicativo
-[Video Explicativo SIMA](https://docs.google.com/presentation/d/1yfsZC-XnGhXcnPUYcO-Szv88AsTuREfW/edit?usp=drive_link&ouid=117212070881843989884&rtpof=true&sd=true)
+[Video Explicativo SIMA]([https://docs.google.com/presentation/d/1yfsZC-XnGhXcnPUYcO-Szv88AsTuREfW/edit?usp=drive_link&ouid=117212070881843989884&rtpof=true&sd=true](https://drive.google.com/file/d/1ZcUxbGLnGgDdEpzNlXXXOu1QAvv_KkIF/view?usp=drive_link))
 
 
 ## Descripción del Proyecto
