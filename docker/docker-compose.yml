@@ -1,0 +1,34 @@
+services:
+
+  api:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.api
+
+    container_name: sima_api
+
+    ports:
+      - "8000:8000"
+
+    volumes:
+      - ../data:/app/data
+
+  dashboard:
+
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.dashboard
+
+    container_name: sima_dashboard
+
+    depends_on:
+      - api
+
+    ports:
+      - "8501:8501"
+
+    environment:
+      API_URL: http://api:8000/api/v1
+
+    volumes:
+      - ../data:/app/data
