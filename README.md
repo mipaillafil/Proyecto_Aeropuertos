@@ -60,7 +60,7 @@ Desarrollar una plataforma capaz de:
 # 📂 Estructura del proyecto
 
 ```
-Proyecto_Aeropuertos_Cortes_Marchesse_Paillafil/
+Proyecto_Aeropuertos/
 
 │
 ├── api/
@@ -236,7 +236,7 @@ Permite ejecutar toda la solución mediante un único comando.
 ## 1. Clonar repositorio
 
 ```bash
-git clone https://github.com/mipaillafil/Proyecto_Aeropuertos_Cortes_Marchesse_Paillafil.git
+git clone https://github.com/mipaillafil/Proyecto_Aeropuertos.git
 ```
 
 ---
