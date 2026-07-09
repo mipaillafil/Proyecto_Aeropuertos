@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Response
 from api.database import obtener_aeropuertos, obtener_datos, obtener_estadisticas
 from api.openmeteo import obtener_clima
 
@@ -6,6 +6,11 @@ app = FastAPI(
     title="API Sistema Aeroportuario",
     version="1.0"
 )
+
+
+@app.get("/favicon.ico")
+def favicon():
+    return Response(status_code=204)
 
 
 @app.get("/")
