@@ -1,336 +1,309 @@
-# Sistema Inteligente de Monitoreo Aeroportuario
+# ✈️ SIMA - Sistema Inteligente de Monitoreo Aeroportuario
 
-## Integrantes
-- LUNA CORTES
-- JAVIERA MARCHESSE
-- MILLARAY PAILLAFIL
+## Proyecto End-to-End de Ciencia de Datos e Ingeniería de Software
 
-## Video Explicativo
-[Video Explicativo SIMA](https://drive.google.com/file/d/1ZcUxbGLnGgDdEpzNlXXXOu1QAvv_KkIF/view?usp=drive_link)
+SIMA (Sistema Inteligente de Monitoreo Aeroportuario) es una solución desarrollada bajo un enfoque **End-to-End**, cuyo propósito es integrar, procesar, almacenar, analizar y visualizar información relacionada con operaciones aeroportuarias.
 
-## Descripción del Proyecto
-
-SIMA (Sistema Inteligente de Monitoreo Aeroportuario) es una solución End-to-End desarrollada para la asignatura Programación para la Ciencia de Datos.
-
-El proyecto tiene como objetivo centralizar, procesar, analizar y visualizar información relacionada con operaciones aeroportuarias mediante técnicas de Ciencia de Datos, Ingeniería de Datos y Machine Learning. Para ello se implementó una arquitectura modular que integra procesos ETL, almacenamiento en SQLite, servicios REST mediante FastAPI y dashboards interactivos desarrollados con Streamlit.
-
-La solución permite transformar datos operacionales en información útil para distintos tipos de usuarios, apoyando la toma de decisiones estratégicas, operativas y técnicas.
+El proyecto implementa un pipeline completo de Ciencia de Datos, integrando procesos ETL, una base de datos SQLite, una API REST desarrollada con FastAPI, dashboards interactivos en Streamlit, técnicas de Machine Learning y una estrategia de despliegue mediante Docker.
 
 ---
 
-# Objetivos
+# 👥 Integrantes
 
-## Objetivo General
-
-Desarrollar una plataforma integral para el monitoreo y análisis de operaciones aeroportuarias utilizando herramientas modernas de Ciencia de Datos.
-
-## Objetivos Específicos
-
-* Implementar un pipeline ETL para la preparación y limpieza de datos.
-* Integrar múltiples fuentes de información.
-* Construir una base de datos SQLite para almacenamiento persistente.
-* Desarrollar una API REST utilizando FastAPI.
-* Diseñar dashboards interactivos para diferentes perfiles de usuario.
-* Aplicar técnicas de Machine Learning para análisis exploratorio avanzado.
-* Implementar pruebas automatizadas para garantizar la calidad del sistema.
+- Millaray Paillafil
+- Luna Cortés
+- Javiera Marchesse
+- Kimberly Bobadilla
 
 ---
 
-# Arquitectura de la Solución
+# 🎯 Objetivo
 
-```text
-Dataset Operaciones Aeroportuarias
-            │
-            ▼
-      Pipeline ETL
-            │
-            ▼
-          SQLite
-            │
-            ▼
-         FastAPI
-            │
-            ├── Estadísticas
-            ├── Operaciones
-            ├── Aeropuertos
-            └── Open-Meteo
-            │
-            ▼
-    Dashboard Streamlit
-            │
-            ├── Ejecutivo
-            ├── Operativo
-            └── Técnico
-            │
-            ▼
-     Machine Learning
-      (K-Means y PCA)
+Desarrollar una plataforma capaz de:
+
+- Integrar múltiples fuentes de datos.
+- Automatizar procesos ETL.
+- Almacenar información en SQLite.
+- Exponer datos mediante una API REST.
+- Visualizar información mediante dashboards interactivos.
+- Aplicar técnicas de Machine Learning para análisis de datos.
+- Facilitar el despliegue mediante Docker.
+
+---
+
+# 🏗 Arquitectura del proyecto
+
+```
+                CSV + API Open-Meteo
+                         │
+                         ▼
+                    ETL (Python)
+                         │
+                         ▼
+                    SQLite Database
+                         │
+                         ▼
+                   FastAPI REST API
+                         │
+                         ▼
+                Dashboard Streamlit
+                         │
+                         ▼
+             Machine Learning + Análisis
+                         │
+                         ▼
+                 Docker + Docker Compose
 ```
 
 ---
 
-# Estructura del Proyecto
+# 📂 Estructura del proyecto
 
-```text
-Proyecto_Aeropuertos_Cortes_Marchesse_Paillafil
+```
+Proyecto_Aeropuertos_Cortes_Marchesse_Paillafil/
+
 │
 ├── api/
-│   ├── main.py
 │   ├── database.py
+│   ├── main.py
 │   └── openmeteo.py
 │
 ├── dashboard/
-│   └── dashboard-inicio.py
+│   └── dashboard_inicio.py
 │
 ├── data/
-│   ├── operaciones_aeropuertos.csv
-│   ├── operaciones_aeropuertos_clean.csv
-│   └── aeropuertos.db
+│
+├── docker/
+│   ├── Dockerfile.api
+│   ├── Dockerfile.dashboard
+│   └── docker-compose.yml
+│
+├── docs/
 │
 ├── etl/
-│   └── ETL.ipynb
+│   ├── ETL.ipynb
+│   └── etl_evaluacion.py
+│
+├── models/
+│   └── modelos_supervisados.py
 │
 ├── tests/
-│   ├── test_api.py
-│   ├── test_database.py
-│   └── test_openmeteo.py
 │
-├── requirements.txt
-└── README.md
+├── README.md
+│
+└── requirements.txt
 ```
 
 ---
 
-# Pipeline ETL
+# ⚙️ Tecnologías utilizadas
 
-El proceso ETL contempla tres etapas fundamentales:
+- Python
+- Pandas
+- NumPy
+- SQLite
+- FastAPI
+- Streamlit
+- Scikit-Learn
+- Plotly
+- Open-Meteo API
+- Docker
+- Docker Compose
+- Pytest
+
+---
+
+# 🔄 Pipeline ETL
+
+El proyecto implementa un proceso ETL compuesto por las siguientes etapas:
 
 ## Extracción
 
-Obtención de datos desde:
-
-* Dataset de operaciones aeroportuarias.
-* API Open-Meteo.
-* Base de datos SQLite.
+- Dataset de operaciones aeroportuarias (CSV).
+- Información meteorológica desde Open-Meteo.
 
 ## Transformación
 
-Se realizaron:
-
-* Limpieza de datos.
-* Tratamiento de valores faltantes.
-* Validación de registros.
-* One-Hot Encoding.
-* Normalización de variables.
+- Validación del esquema.
+- Eliminación de duplicados.
+- Tratamiento de valores nulos.
+- Conversión de tipos de datos.
+- Agrupaciones mediante Pandas.
+- Pivot Tables.
+- Ranking de aeropuertos.
+- Transformaciones vectorizadas.
 
 ## Carga
 
-Los datos procesados son almacenados en SQLite para su posterior explotación mediante la API REST.
+Los datos procesados son almacenados en SQLite para ser consumidos posteriormente por la API REST.
 
 ---
 
-# Base de Datos
+# 🤖 Machine Learning
 
-Se utiliza SQLite como sistema de almacenamiento local.
+Se implementaron modelos de aprendizaje supervisado y no supervisado.
 
-Base de datos:
+## Supervisados
 
-```text
-aeropuertos.db
-```
+- Regresión Logística
+- Árbol de Decisión
+- Random Forest
 
-Tabla principal:
+Se comparan utilizando:
 
-```text
-operaciones
-```
+- Accuracy
+- Precision
+- Recall
+- F1-score
+- Matriz de Confusión
+- GridSearchCV
 
-La API consulta directamente esta base de datos para entregar información actualizada al dashboard.
+## No supervisados
+
+- K-Means
+- PCA
+
+Estos modelos permiten identificar patrones y realizar análisis exploratorios sobre las operaciones aeroportuarias.
 
 ---
 
-# API REST (FastAPI)
+# 🌐 API REST
 
 La API fue desarrollada utilizando FastAPI.
 
-## Endpoints Disponibles
+Principales endpoints:
 
-### Estado de la API
+- /estadisticas
+- /operaciones
+- /aeropuertos
+- /clima
 
-```http
-GET /
+La documentación interactiva se encuentra disponible mediante Swagger.
+
+---
+
+# 📊 Dashboard
+
+El sistema incorpora un dashboard desarrollado con Streamlit que permite:
+
+- Visualizar KPIs.
+- Consultar operaciones aeroportuarias.
+- Visualizar gráficos interactivos.
+- Mostrar información meteorológica.
+- Explorar resultados de Machine Learning.
+
+---
+
+# 🗄 Base de datos
+
+Se utilizó SQLite debido a que:
+
+- Es ligera.
+- No requiere servidor.
+- Es portable.
+- Facilita el despliegue.
+- Se integra fácilmente con FastAPI.
+
+---
+
+# 🧪 Testing
+
+Se desarrollaron pruebas automatizadas utilizando Pytest para validar:
+
+- API REST.
+- Base de datos SQLite.
+- Integración con Open-Meteo.
+- Funciones principales del proyecto.
+
+---
+
+# 🐳 Docker
+
+El proyecto incorpora contenedores Docker para facilitar su despliegue.
+
+Archivos incluidos:
+
+- Dockerfile API
+- Dockerfile Dashboard
+- Docker Compose
+
+Permite ejecutar toda la solución mediante un único comando.
+
+---
+
+# 🚀 Instalación
+
+## 1. Clonar repositorio
+
+```bash
+git clone https://github.com/mipaillafil/Proyecto_Aeropuertos_Cortes_Marchesse_Paillafil.git
 ```
 
-### Estadísticas Generales
+---
 
-```http
-GET /api/v1/estadisticas
-```
+## 2. Crear entorno virtual
 
-### Operaciones
-
-```http
-GET /api/v1/operaciones
-```
-
-### Aeropuertos
-
-```http
-GET /api/v1/aeropuertos
-```
-
-### Información Meteorológica
-
-```http
-GET /api/v1/clima
-```
-
-## Documentación Swagger
-
-```text
-http://localhost:8000/docs
+```bash
+python -m venv .venv
 ```
 
 ---
 
-# Dashboard Ejecutivo
+## 3. Activar entorno virtual
 
-Orientado a usuarios estratégicos.
+Windows
 
-Funcionalidades:
+```bash
+.venv\Scripts\activate
+```
 
-* KPIs generales.
-* Ranking de aeropuertos.
-* Métricas agregadas.
-* Distribución de operaciones.
+Linux
 
----
-
-# Dashboard Operativo
-
-Orientado a usuarios operacionales.
-
-Funcionalidades:
-
-* Filtros por aeropuerto.
-* Métricas operativas.
-* Integración con Open-Meteo.
-* Monitoreo de actividad aeroportuaria.
+```bash
+source .venv/bin/activate
+```
 
 ---
 
-# Dashboard Técnico
-
-Orientado a analistas y científicos de datos.
-
-Funcionalidades:
-
-* Clustering mediante K-Means.
-* PCA (Principal Component Analysis).
-* Visualización de clusters.
-* Análisis exploratorio avanzado.
-
----
-
-# Machine Learning
-
-## Algoritmos Utilizados
-
-### K-Means
-
-Permite identificar segmentos operacionales y agrupaciones de comportamiento.
-
-### PCA
-
-Reduce la dimensionalidad del conjunto de datos para facilitar la visualización de patrones.
-
----
-
-# Integración Open-Meteo
-
-La plataforma consume información meteorológica en tiempo real utilizando Open-Meteo.
-
-Variables utilizadas:
-
-* Temperatura.
-* Velocidad del viento.
-* Dirección del viento.
-* Código meteorológico.
-
----
-
-# Testing Automatizado
-
-Se implementaron pruebas automatizadas para validar el correcto funcionamiento de los principales componentes del sistema.
-
-## Pruebas Implementadas
-
-### API
-
-* Validación de endpoints.
-* Respuesta HTTP correcta.
-* Integridad de respuestas JSON.
-
-### Base de Datos
-
-* Verificación de conexión SQLite.
-* Validación de consultas.
-* Integridad de datos.
-
-### Open-Meteo
-
-* Consumo correcto de la API.
-* Validación de estructura de respuesta.
-
-Objetivo:
-
-Garantizar la estabilidad, calidad y confiabilidad de la solución.
-
----
-
-# Próximas Mejoras
-
-## Containerización con Docker
-
-Como siguiente etapa del proyecto se contempla la incorporación de Docker para facilitar el despliegue y la reproducibilidad del sistema.
-
-Implementaciones planificadas:
-
-* Dockerfile para FastAPI.
-* Dockerfile para Streamlit.
-* docker-compose para orquestación de servicios.
-* Configuración mediante variables de entorno.
-
-Beneficios esperados:
-
-* Portabilidad.
-* Despliegue simplificado.
-* Reproducibilidad del entorno.
-* Escalabilidad futura.
-
----
-
-# Ejecución del Proyecto
-
-## Instalar Dependencias
+## 4. Instalar dependencias
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Ejecutar API
+---
+
+# ▶ Ejecutar ETL
+
+```bash
+python etl/etl_evaluacion.py
+```
+
+---
+
+# ▶ Ejecutar API
 
 ```bash
 uvicorn api.main:app --reload
 ```
 
-## Ejecutar Dashboard
+Swagger:
 
-```bash
-streamlit run dashboard/dashboard-inicio.py
+```
+http://127.0.0.1:8000/docs
 ```
 
-## Ejecutar Tests
+---
+
+# ▶ Ejecutar Dashboard
+
+```bash
+streamlit run dashboard/dashboard_inicio.py
+```
+
+---
+
+# ▶ Ejecutar Tests
 
 ```bash
 pytest tests/
@@ -338,22 +311,42 @@ pytest tests/
 
 ---
 
-# Tecnologías Utilizadas
+# ▶ Ejecutar Docker
 
-* Python
-* Pandas
-* NumPy
-* SQLite
-* FastAPI
-* Streamlit
-* Plotly
-* Scikit-Learn
-* Pytest
-* Open-Meteo API
+```bash
+docker compose -f docker/docker-compose.yml up --build
+```
 
 ---
 
-# Asignatura
- Programación para la Ciencia de Datos
+# 📈 Resultados obtenidos
 
-Duoc UC
+Durante el desarrollo del proyecto se logró:
+
+- Automatizar el proceso ETL.
+- Integrar múltiples fuentes de datos.
+- Implementar una API REST.
+- Centralizar la información en SQLite.
+- Construir dashboards interactivos.
+- Aplicar modelos de Machine Learning.
+- Incorporar pruebas automatizadas.
+- Preparar el proyecto para despliegue mediante Docker.
+
+---
+
+# 📖 Documentación
+
+La documentación técnica y el informe del proyecto se encuentran disponibles en la carpeta:
+
+```
+docs/
+```
+
+---
+
+# 📌 Conclusiones
+
+SIMA constituye una solución End-to-End que integra Ciencia de Datos e Ingeniería de Software para apoyar el monitoreo de operaciones aeroportuarias.
+
+La combinación de ETL, SQLite, FastAPI, Streamlit, Machine Learning, Testing y Docker permitió construir una plataforma modular, escalable y preparada para escenarios reales de análisis de datos.
+
