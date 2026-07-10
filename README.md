@@ -341,7 +341,19 @@ La documentación técnica y el informe del proyecto se encuentran disponibles e
 ```
 docs/
 ```
+## Mejoras propuestas
 
+Como parte del desarrollo del proyecto se identificaron las siguientes mejoras futuras:
+
+- Mejorar el manejo de errores en la API.
+- Optimizar las consultas a la base de datos.
+- Agregar validación de datos de entrada.
+- Incorporar más pruebas automatizadas para aumentar la confiabilidad del sistema.
+---
+
+## Autor del aporte
+
+Se agregó una propuesta de mejora enfocada en fortalecer la documentación y las futuras optimizaciones del proyecto.
 ---
 
 # 📌 Conclusiones
